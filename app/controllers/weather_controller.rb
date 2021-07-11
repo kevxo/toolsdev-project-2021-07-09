@@ -2,8 +2,7 @@ class WeatherController < ApplicationController
   before_action :collect_weather
 
   def index
-    @weathers = Weather.all
-    require 'pry' ; binding.pry
+    render json: WeatherSerializer.new(Weather.all)
   end
 
   private
