@@ -104,6 +104,8 @@ GEM
     globalid (0.4.2)
       activesupport (>= 4.2.0)
     hashdiff (1.0.1)
+    highstock-rails (5.0.11)
+      railties (>= 3.1)
     i18n (1.8.10)
       concurrent-ruby (~> 1.0)
     jbuilder (2.10.0)
@@ -259,6 +261,7 @@ DEPENDENCIES
   faraday
   fast_jsonapi
   figaro
+  highstock-rails
   jbuilder (~> 2.5)
   jquery-rails
   jsonapi-serializer

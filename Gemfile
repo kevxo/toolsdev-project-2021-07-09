@@ -39,6 +39,7 @@ gem 'faraday'
 gem 'fast_jsonapi'
 gem 'figaro'
 gem 'jsonapi-serializer'
+gem 'highstock-rails'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
