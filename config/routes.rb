@@ -4,6 +4,6 @@ Rails.application.routes.draw do
   root 'charts#index'
 
   get '/austin/temperature', to: 'weather#index'
-  get '/forcasts', to: 'forcasts#index'
+  get '/forecasts', to: 'forecasts#index'
   get '/charts', to: 'charts#index'
 end

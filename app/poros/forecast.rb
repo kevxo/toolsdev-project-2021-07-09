@@ -1,4 +1,4 @@
-class Forcast
+class Forecast
   attr_reader :date, :hourly_temps
   def initialize(data)
     @date = data[:date]
@@ -9,10 +9,11 @@ class Forcast
     hash = {}
 
     data[:hourly].each do |value|
-      hour = value[:time]
+      hour = value[:time].to_i / 100
+      time = "#{hour}:00"
       temp = value[:tempF]
 
-      hash[hour] = temp
+      hash[time] = temp
     end
 
     return hash

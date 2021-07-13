@@ -1,5 +1,5 @@
-class ForcastsService
-  def self.current_forcasts
+class ForecastsService
+  def self.current_forecasts
     response = conn.get('/premium/v1/weather.ashx') do |req|
       req.params['q'] = '30.404251,-97.849442'
       req.params['num_of_days'] = '2'

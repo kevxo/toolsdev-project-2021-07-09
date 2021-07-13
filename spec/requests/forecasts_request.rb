@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe 'Forcasts API' do
   describe 'Current Austin Weather' do
     it 'should retreive current weather', :vcr do
-      get '/forcasts'
+      get '/forecasts'
 
       expect(response).to be_successful
 
@@ -14,7 +14,7 @@ RSpec.describe 'Forcasts API' do
         expect(data[:id]).to eq(nil)
 
         expect(data).to have_key(:type)
-        expect(data[:type]).to eq('forcast')
+        expect(data[:type]).to eq('forecast')
 
         expect(data).to have_key(:attributes)
         expect(data[:attributes].keys).to eq(%i[date hourly_temps])
