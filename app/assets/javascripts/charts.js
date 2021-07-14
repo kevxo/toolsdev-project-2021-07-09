@@ -10,12 +10,31 @@ function dataResult(data){
   return datesTemp;
 }
 
+function dataTwoResult(data) {
+  let datesTemp = {};
 
-// document.addEventListener('DOMContentLoaded', () => {
-//   fetch('/austin/temperature')
-//     .then(result => result.json())
-//     .then(dataResult)
-// });
+  data.data.forEach(obj => {
+    var dates = obj.attributes.date
+    var temps = obj.attributes.hourly_temps
+    datesTemp[dates] =  temps
+  })
+
+  return datesTemp;
+}
+
+function graphWeather(data) {
+  var results = []
+
+  for (const[key, value]of Object.entries(data)) {
+    for (const[key2, value2] of Object.entries(value)){
+      dateString = `${key} ${key2}`
+      time = new Date(dateString)
+      results.push([time.getTime(), parseInt(value2)])
+    }
+  }
+
+  return results;
+}
 
 $(document).ready(() => {
   $.ajax({
@@ -23,71 +42,72 @@ $(document).ready(() => {
     url: '/austin/temperature',
     success: (data) => {
         const result = dataResult(data)
-        console.log(Object.keys(result))
+        console.log(result)
+        $.ajax({
+          type: 'GET',
+          url: '/forecasts',
+          success: (data2) => {
+          const result2 = dataTwoResult(data2)
         // Create the chart
-        Highcharts.stockChart('container', {
-          chart: {
-              events: {
-                  load: function () {
-
-                      // set up the updating of the chart each second
-                      var series = this.series[0];
-                      setInterval(function () {
-                          var x = (new Date()).getTime(), // current time
-                              y = Math.round(Math.random() * 100);
-                          series.addPoint([x, y], true, true);
-                      }, 1000);
+            Highcharts.stockChart('container', {
+              chart: {
+                  events: {
+                      load: function () {
+                      }
                   }
-              }
-          },
+              },
 
-          time: {
-              useUTC: false
-          },
+              time: {
+                  useUTC: false
+              },
 
-          rangeSelector: {
-              buttons: [{
-                  count: 1,
-                  type: 'minute',
-                  text: '1M'
-              }, {
-                  count: 5,
-                  type: 'minute',
-                  text: '5M'
-              }, {
-                  type: 'all',
-                  text: 'All'
-              }],
-              inputEnabled: false,
-              selected: 0
-          },
+              rangeSelector: {
+                  buttons: [{
+                      type: 'current day',
+                      text: 'Cd'
+                  },{
+                    count: 1,
+                    type: 'day',
+                    text: '1d'
+                  },{
+                      count: 1,
+                      type: 'week',
+                      text: '1w'
+                  }, {
+                      count: 1,
+                      type: 'month',
+                      text: '1m'
+                  },{
+                    type: 'All',
+                    text: 'All'
+                  }],
+                  inputEnabled: true,
+                  selected: 0
+              },
 
-          title: {
-              text: 'Weather for Austin HQ'
-          },
+              legend: {
+                enabled: true,
+                title: ['Historical', 'Forcasts']
+              },
 
-          exporting: {
-              enabled: false
-          },
+              title: {
+                  text: 'Weather for Austin HQ'
+              },
 
-          series: [{
-              name: 'Random data',
-              data: (function () {
-                  // generate an array of random data
-                  var data = [],
-                      time = (new Date()).getTime(),
-                      i;
+              exporting: {
+                  enabled: false
+              },
 
-                  for (i = -999; i <= 0; i += 1) {
-                      data.push([
-                          time + i * 1000,
-                          Math.round(Math.random() * 100)
-                      ]);
-                  }
-                  return data;
-              }())
-          }]
-      });
+              series: [{
+                  name: 'Historical',
+                  data: graphWeather(result)
+              },{
+                name: 'Forcasts',
+                data: graphWeather(result2)
+              }]
+            });
+          }
+        })
       }
     });
   }
