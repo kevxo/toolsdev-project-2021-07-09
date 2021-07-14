@@ -8,7 +8,7 @@ class WeatherService
     response = conn.get('/premium/v1/past-weather.ashx') do |req|
       req.params[:q] = '30.404251,-97.849442'
       req.params[:format] = 'json'
-      req.params[:tp] = '3'
+      req.params[:tp] = '1'
       req.params[:key] = ENV['KEY']
       req.params[:date] = month_ago.strftime('%F')
       req.params[:enddate] = today.strftime('%F')

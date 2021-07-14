@@ -5,9 +5,10 @@ class WeatherFacade
       hash = {}
       date = data[:date]
 
-      data[:hourly].each do |hour|
-        time = hour[:time]
-        temp = hour[:tempF]
+      data[:hourly].each do |ele|
+        hour = ele[:time].to_i / 100
+        time = "#{hour}:00"
+        temp = ele[:tempF]
 
         hash[time] = temp
       end
