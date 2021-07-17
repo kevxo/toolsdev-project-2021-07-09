@@ -116,135 +116,134 @@ function highandlowData(info, weather){
   return info
 }
 
+function fetchdata(){
+  $.ajax({
+    type: 'GET',
+    url: '/austin/temperature',
+    success: (data) => {
+        const result = dataResult(data)
+        const setThreeHourWeather = dataResult(data)
+
+        const x = dataResult(data)
+        const highData = highandlowData(highs(x), setThreeHourWeather)
+
+        const y = dataResult(data)
+        const lowData = highandlowData(lows(y), setThreeHourWeather)
+
+        $.ajax({
+          type: 'GET',
+          url: '/forecasts',
+          success: (data2) => {
+          const result2 = dataTwoResult(data2)
+        // Create the chart
+            Highcharts.stockChart('container', {
+              time: {
+                  useUTC: false
+              },
+
+              rangeSelector: {
+                  buttons: [{
+                      type: 'current day',
+                      text: 'Cd'
+                  },{
+                    count: 1,
+                    type: 'day',
+                    text: '1d'
+                  },{
+                      count: 1,
+                      type: 'week',
+                      text: '1w'
+                  }, {
+                      count: 1,
+                      type: 'month',
+                      text: '1m'
+                  },{
+                    type: 'All',
+                    text: 'All'
+                  }],
+                  inputEnabled: true,
+                  selected: 0
+              },
+
+              legend: {
+                enabled: true,
+                title: ['Historical', 'Forcasts']
+              },
+
+              title: {
+                  text: 'Weather for Austin HQ'
+              },
+
+              exporting: {
+                  enabled: false
+              },
+
+              series: [{
+                  name: 'Historical',
+                  data: graphWeather(result)
+              },{
+                name: 'Forcasts',
+                data: graphWeather(result2)
+              }]
+            });
+
+            Highcharts.stockChart('containerTwo', {
+              time: {
+                  useUTC: false
+              },
+
+              rangeSelector: {
+                  buttons: [{
+                      type: 'current day',
+                      text: 'Cd'
+                  },{
+                    count: 1,
+                    type: 'day',
+                    text: '1d'
+                  },{
+                      count: 1,
+                      type: 'week',
+                      text: '1w'
+                  }, {
+                      count: 1,
+                      type: 'month',
+                      text: '1m'
+                  },{
+                    type: 'All',
+                    text: 'All'
+                  }],
+                  inputEnabled: true,
+                  selected: 0
+              },
+
+              legend: {
+                enabled: true,
+                title: ['High', 'Low']
+              },
+
+              title: {
+                  text: '3-Hour Highs and Lows'
+              },
+
+              exporting: {
+                  enabled: false
+              },
+
+            series: [{
+                name: 'High',
+                data: graphWeather(highData)
+            },{
+              name: 'Low',
+              data: graphWeather(lowData)
+            }]
+          });
+        }
+      })
+    }
+  });
+}
 
 $(document).ready(() => {
-  setInterval(function () {
-    $.ajax({
-      type: 'GET',
-      url: '/austin/temperature',
-      success: (data) => {
-          const result = dataResult(data)
-          const setThreeHourWeather = dataResult(data)
-
-          const x = dataResult(data)
-          const highData = highandlowData(highs(x), setThreeHourWeather)
-
-          const y = dataResult(data)
-          const lowData = highandlowData(lows(y), setThreeHourWeather)
-
-          $.ajax({
-            type: 'GET',
-            url: '/forecasts',
-            success: (data2) => {
-            const result2 = dataTwoResult(data2)
-          // Create the chart
-              Highcharts.stockChart('container', {
-                time: {
-                    useUTC: false
-                },
-
-                rangeSelector: {
-                    buttons: [{
-                        type: 'current day',
-                        text: 'Cd'
-                    },{
-                      count: 1,
-                      type: 'day',
-                      text: '1d'
-                    },{
-                        count: 1,
-                        type: 'week',
-                        text: '1w'
-                    }, {
-                        count: 1,
-                        type: 'month',
-                        text: '1m'
-                    },{
-                      type: 'All',
-                      text: 'All'
-                    }],
-                    inputEnabled: true,
-                    selected: 0
-                },
-
-                legend: {
-                  enabled: true,
-                  title: ['Historical', 'Forcasts']
-                },
-
-                title: {
-                    text: 'Weather for Austin HQ'
-                },
-
-                exporting: {
-                    enabled: false
-                },
-
-                series: [{
-                    name: 'Historical',
-                    data: graphWeather(result)
-                },{
-                  name: 'Forcasts',
-                  data: graphWeather(result2)
-                }]
-              });
-
-              Highcharts.stockChart('containerTwo', {
-                time: {
-                    useUTC: false
-                },
-
-                rangeSelector: {
-                    buttons: [{
-                        type: 'current day',
-                        text: 'Cd'
-                    },{
-                      count: 1,
-                      type: 'day',
-                      text: '1d'
-                    },{
-                        count: 1,
-                        type: 'week',
-                        text: '1w'
-                    }, {
-                        count: 1,
-                        type: 'month',
-                        text: '1m'
-                    },{
-                      type: 'All',
-                      text: 'All'
-                    }],
-                    inputEnabled: true,
-                    selected: 0
-                },
-
-                legend: {
-                  enabled: true,
-                  title: ['High', 'Low']
-                },
-
-                title: {
-                    text: '3-Hour Highs and Lows'
-                },
-
-                exporting: {
-                    enabled: false
-                },
-
-                series: [{
-                    name: 'High',
-                    data: graphWeather(highData)
-                },{
-                  name: 'Low',
-                  data: graphWeather(lowData)
-                }]
-              });
-            }
-          })
-        }
-      });
-    }, 1800000);
-  }
-)
-
-
+  fetchdata();
+  setInterval(fetchdata, 1800000);
+})
