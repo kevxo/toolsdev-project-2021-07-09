@@ -35,12 +35,16 @@ gem 'jbuilder', '~> 2.5'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
+gem 'bootstrap', '~> 5.0.1'
+gem 'popper_js', '~> 2.9.2'
+
 gem 'clockwork'
 gem 'faraday'
 gem 'fast_jsonapi'
 gem 'figaro'
 gem 'jsonapi-serializer'
 gem 'highstock-rails'
+
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

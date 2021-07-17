@@ -1,5 +1,12 @@
+<nav class="navbar fixed-top navbar-dark bg-dark">
+  <a class="navbar-brand" >
+    <%= image_tag("comp-logo.png", width: "30", height: "30", alt: "", loading: "lazy") %>
+  </a>
 
-<h1>Weather for Austin HQ</h1>
+  <a class="navbar-brand"><h1 class="text-center">Austin HQ</h1></a>
+</nav>
 
-<div id="container" style="height: 400px; min-width: 310px"></div>
-<div id="containerTwo" style="height: 400px; min-width: 310px"></div>
+  <span class="border-left-0">
+    <div class="chart" id="container" style="height: 400px; min-width: 310px"></div><br/>
+    <div class="chart" id="containerTwo" style="height: 400px; min-width: 310px"></div>
+  </span>
