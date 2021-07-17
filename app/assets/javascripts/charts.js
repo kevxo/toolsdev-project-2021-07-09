@@ -36,51 +36,84 @@ function graphWeather(data) {
   return results;
 }
 
-function threeHourWeather(weather) {
-  for (const[key, value]of Object.entries(weather)) {
-    for (const[time, value2] of Object.entries(value)) {
-      if (parseInt(time) % 3 != 0) {
-        delete value[time]
+function threeHourTimes(weather) {
+  results = []
+  for (var [key, value]of Object.entries(weather)) {
+    times = Object.keys(value).slice(0, 22)
+    for ( i = 0; i < times.length; i++) {
+      if (parseInt(times[i]) % 3 === 0 && parseInt(times[i]) > 0){
+        results.push(times[i])
       }
     }
   }
 
-  return weather;
+
+  return results.slice(0, 7);
 }
 
 
 function highs(info){
-  for (const[date, value] of Object.entries(info)){
-    let largestNumber = value['0:00']
+  hash = {}
+  for (var [date, value] of Object.entries(info)){
+    results = [];
+    temps = Object.values(value)
+    uint = new Uint8Array(temps)
 
-    for (const[time, temp] of Object.entries(value)) {
+    results.push(Math.max(...uint.subarray(0, 3)))
+    results.push(Math.max(...uint.subarray(3, 6)))
+    results.push(Math.max(...uint.subarray(6, 9)))
+    results.push(Math.max(...uint.subarray(9, 12)))
+    results.push(Math.max(...uint.subarray(12, 15)))
+    results.push(Math.max(...uint.subarray(15, 18)))
+    results.push(Math.max(...uint.subarray(18, 21)))
 
-      if (largestNumber < temp){
-        largestNumber = temp
-      }
-
-      value[time] = largestNumber
-    }
+    hash[date] = results
   }
 
-  return info
+  return hash
 }
 
 function lows(info2){
-  for (const[date, value] of Object.entries(info2)){
-    let smallestNumber = value['0:00']
+  hash = {}
+  for (var [date, value] of Object.entries(info2)){
+    results = [];
+    temps = Object.values(value)
+    uint = new Uint8Array(temps)
 
-    for (const[time, temp] of Object.entries(value)) {
+    results.push(Math.min(...uint.subarray(0, 3)))
+    results.push(Math.min(...uint.subarray(3, 6)))
+    results.push(Math.min(...uint.subarray(6, 9)))
+    results.push(Math.min(...uint.subarray(9, 12)))
+    results.push(Math.min(...uint.subarray(12, 15)))
+    results.push(Math.min(...uint.subarray(15, 18)))
+    results.push(Math.min(...uint.subarray(18, 21)))
 
-      if (smallestNumber > temp){
-        smallestNumber = temp
-      }
-
-      value[time] = smallestNumber
-    }
+    hash[date] = results
   }
 
-  return info2
+  return hash
+}
+
+function highandlowData(info, weather){
+  var times = threeHourTimes(weather)
+  var temps = Object.values(info)
+  var dates = Object.keys(info)
+
+  index = 0
+
+  temps.forEach(list => {
+
+    hash = {}
+    for (i = 0; i < list.length; i++) {
+      hash[times[i]] = list[i]
+    }
+
+
+    info[dates[index]] = hash
+    index++;
+  })
+
+  return info
 }
 
 
@@ -90,9 +123,13 @@ $(document).ready(() => {
     url: '/austin/temperature',
     success: (data) => {
         const result = dataResult(data)
-        console.log(result);
+        const setThreeHourWeather = dataResult(data)
+
         const x = dataResult(data)
+        const highData = highandlowData(highs(x), setThreeHourWeather)
+
         const y = dataResult(data)
+        const lowData = highandlowData(lows(y), setThreeHourWeather)
 
         $.ajax({
           type: 'GET',
@@ -195,10 +232,10 @@ $(document).ready(() => {
 
               series: [{
                   name: 'High',
-                  data: graphWeather(highs(threeHourWeather(x)))
+                  data: graphWeather(highData)
               },{
                 name: 'Low',
-                data: graphWeather(lows(threeHourWeather(y)))
+                data: graphWeather(lowData)
               }]
             });
           }
