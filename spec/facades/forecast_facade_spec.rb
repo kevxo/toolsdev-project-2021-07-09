@@ -8,6 +8,6 @@ RSpec.describe ForecastFacade do
     expect(forecast.first).to be_a Forecast
 
     expect(forecast.first.date).to be_a String
-    expect(forecast.first.houlry_temps).to be_a Hash
+    expect(forecast.first.hourly_temps).to be_a Hash
   end
 end
