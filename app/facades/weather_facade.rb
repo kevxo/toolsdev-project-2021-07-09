@@ -21,7 +21,7 @@ class WeatherFacade
     weather = Weather.find_by(date: date)
 
     if weather
-      weather
+      weather.update(date: date, temp_data: hash.to_json)
     else
       weather = Weather.new(date: date, temp_data: hash.to_json)
       weather.save
