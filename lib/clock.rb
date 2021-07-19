@@ -13,5 +13,6 @@ module Clockwork
 
   every(1.hour, 'hourly.job -- Weather.update_everything') do |job|
     WeatherFacade.weather
+    ForecastFacade.forecast
   end
 end
