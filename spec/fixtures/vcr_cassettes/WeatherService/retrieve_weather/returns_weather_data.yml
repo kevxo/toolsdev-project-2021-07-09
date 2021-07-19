@@ -19,7 +19,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Sun, 18 Jul 2021 05:31:10 GMT
+      - Mon, 19 Jul 2021 02:09:15 GMT
       Content-Type:
       - application/json
       Transfer-Encoding:
@@ -29,7 +29,7 @@ http_interactions:
       Vary:
       - Accept-Encoding
       Server:
-      - BunnyCDN-MI1-625
+      - BunnyCDN-MI1-674
       Cdn-Pullzone:
       - '61832'
       Cdn-Uid:
@@ -41,17 +41,17 @@ http_interactions:
       Cache-Control:
       - public, max-age=180
       X-Wwo-Qpd-Left:
-      - '464'
+      - '489'
       Cdn-Cachedat:
-      - '2021-07-18 01:31:10'
+      - '2021-07-18 22:09:12'
       Cdn-Requestpullsuccess:
       - 'True'
       Cdn-Requestpullcode:
       - '200'
       Cdn-Requestid:
-      - 1ffc6a0a52ee8f6c1c678d35cee9da5b
+      - 4c0e98f36ff78e2eab07afb1ace557bb
       Cdn-Cache:
-      - EXPIRED
+      - HIT
     body:
       encoding: ASCII-8BIT
       string: '{"data":{"request":[{"type":"LatLon","query":"Lat 30.40 and Lon -97.85"}],"weather":[{"date":"2021-06-18","astronomy":[{"sunrise":"06:29
@@ -678,5 +678,5 @@ http_interactions:
         cloudy"}],"precipMM":"0.0","precipInches":"0.0","humidity":"63","visibility":"10","visibilityMiles":"6","pressure":"1017","pressureInches":"31","cloudcover":"26","HeatIndexC":"32","HeatIndexF":"90","DewPointC":"21","DewPointF":"70","WindChillC":"29","WindChillF":"85","WindGustMiles":"16","WindGustKmph":"26","FeelsLikeC":"32","FeelsLikeF":"90","uvIndex":"1"},{"time":"2200","tempC":"28","tempF":"83","windspeedMiles":"10","windspeedKmph":"16","winddirDegree":"153","winddir16Point":"SSE","weatherCode":"116","weatherIconUrl":[{"value":"http://cdn.worldweatheronline.com/images/wsymbols01_png_64/wsymbol_0004_black_low_cloud.png"}],"weatherDesc":[{"value":"Partly
         cloudy"}],"precipMM":"0.0","precipInches":"0.0","humidity":"68","visibility":"10","visibilityMiles":"6","pressure":"1017","pressureInches":"31","cloudcover":"22","HeatIndexC":"31","HeatIndexF":"88","DewPointC":"22","DewPointF":"71","WindChillC":"28","WindChillF":"83","WindGustMiles":"15","WindGustKmph":"24","FeelsLikeC":"31","FeelsLikeF":"88","uvIndex":"1"},{"time":"2300","tempC":"27","tempF":"81","windspeedMiles":"9","windspeedKmph":"15","winddirDegree":"162","winddir16Point":"SSE","weatherCode":"116","weatherIconUrl":[{"value":"http://cdn.worldweatheronline.com/images/wsymbols01_png_64/wsymbol_0004_black_low_cloud.png"}],"weatherDesc":[{"value":"Partly
         cloudy"}],"precipMM":"0.0","precipInches":"0.0","humidity":"72","visibility":"10","visibilityMiles":"6","pressure":"1017","pressureInches":"31","cloudcover":"17","HeatIndexC":"30","HeatIndexF":"86","DewPointC":"22","DewPointF":"71","WindChillC":"27","WindChillF":"81","WindGustMiles":"15","WindGustKmph":"23","FeelsLikeC":"30","FeelsLikeF":"86","uvIndex":"1"}]}]}}'
-  recorded_at: Sun, 18 Jul 2021 05:31:12 GMT
+  recorded_at: Mon, 19 Jul 2021 02:09:15 GMT
 recorded_with: VCR 6.0.0
